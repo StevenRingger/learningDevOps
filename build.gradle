@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'war'
 	id 'org.sonarqube' version '2.8'
+	id "com.palantir.docker" version "0.22.1"
 }
 
 group = 'ch.noser'
@@ -27,6 +28,14 @@ sonarqube {
   properties {
     property "sonar.projectKey", "StevenRingger_learningDevops"
   }
+}
+docker {
+    name "bourbonkiid/learning-devops"
+    tags "latest"
+    dockerfile file('dockerfile')
+    files war.archiveFile
+    pull true
+    noCache true
 }
 test {
 	useJUnitPlatform()
